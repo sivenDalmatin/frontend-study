@@ -51,10 +51,10 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
                     ipc_f_guess: ratings[i].bot === 'gpt_default' ? null : parseInt(ratings[i].ipc_f_guess),
                 }
                 console.log(entry)
-                await axios.post('`${import.meta.env.VITE_BACKEND_URL}/evaluate', entry)
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/evaluate`, entry)
             }
 
-            await axios.post('`${import.meta.env.VITE_BACKEND_URL}/evaluate-summary', {
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/evaluate-summary`, {
                 user_id: userId,
                 ranking: overallFeedback.ranking,
                 reason: overallFeedback.reason,

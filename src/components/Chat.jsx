@@ -46,7 +46,7 @@ export default function Chat({
         setLoading(true)
 
         try {
-            const res = await axios.post('`${import.meta.env.VITE_BACKEND_URL}/chat', {
+            const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/chat`, {
                 user: input,
                 history: newMessages,
                 bot: botId,
@@ -83,7 +83,7 @@ export default function Chat({
             setDialogues(updatedDialogues)
 
             try {
-                const response = await axios.post('`${import.meta.env.VITE_BACKEND_URL}/save-dialogue', {
+                const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/save-dialogue`, {
                     dialogue: messages,
                     index: updatedDialogues.length,
                     bot: botId,
