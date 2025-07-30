@@ -94,6 +94,39 @@ export default function UserInfoForm({ onSubmit }) {
                             <p>
                                 Die Daten werden lokal auf Servern gespeichert und nicht an Dritte weitergegeben. Du kannst die Teilnahme jederzeit abbrechen. Durch das Fortfahren bestätigst Du, dass Du mindestens 18 Jahre alt bist und die Datenschutzerklärung gelesen hast.
                             </p>
+                            <h1>Datenschutzerklärung für die Teilnahme an der Online-Studie</h1>
+
+                            <p>Im Rahmen einer Bachelorarbeit an der Universität Münster wird eine Online-Studie durchgeführt. Der Schutz Ihrer personenbezogenen Daten ist uns ein wichtiges Anliegen. Nachfolgend informieren wir Sie über Art, Umfang und Zweck der Erhebung und Verarbeitung Ihrer Daten.</p>
+
+                            <h2>1. Verantwortliche Stelle</h2>
+                            <p>Verantwortlich für die Erhebung und Verarbeitung der Daten ist:</p>
+                            <p>Finn Geßner, Uni Münster</p>
+                            <p>E-Mail: <a href="mailto:finn.gessner@uni-muenster.de">finn.gessner@uni-muenster.de</a></p>
+
+
+                            <h2>2. Zweck der Datenerhebung</h2>
+                            <p>Die Erhebung dient ausschließlich wissenschaftlichen Zwecken im Rahmen der Bachelorarbeit. Ziel ist die Auswertung bestimmter Fragestellungen im Studienkontext.</p>
+
+                            <h2>3. Umfang der erhobenen Daten</h2>
+                            <p>Im Rahmen der Studie werden lediglich folgende Angaben erhoben:</p>
+                            <ul>
+                                <li>Alter (in Jahren)</li>
+                                <li>Studiengang</li>
+                            </ul>
+                            <p>Es werden keine Namen, E-Mail-Adressen oder sonstige direkt personenbezogenen Daten erfasst.</p>
+
+                            <h2>4. Freiwilligkeit und Anonymität</h2>
+                            <p>Die Teilnahme an der Studie ist freiwillig. Alle Angaben erfolgen anonym. Ein Rückschluss auf Ihre Person ist zu keinem Zeitpunkt möglich.</p>
+
+                            <h2>5. Speicherung und Löschung der Daten</h2>
+                            <p>Die erhobenen Daten werden ausschließlich für die Auswertung der Bachelorarbeit verwendet. Nach Abschluss der Auswertung werden die Daten gelöscht bzw. vollständig anonym archiviert, sodass kein Personenbezug möglich ist.</p>
+
+                            <h2>6. Ihre Rechte</h2>
+                            <p>Da keine personenbezogenen Daten im Sinne der DSGVO erhoben werden, entfallen bestimmte Rechte wie Auskunft oder Löschung. Sollten dennoch Fragen bestehen, können Sie sich gerne an die Studienleitung wenden.</p>
+
+                            <p>Mit der Teilnahme an der Studie erklären Sie sich mit der beschriebenen Datennutzung einverstanden.</p>
+
+
                         </div>
                     </div>
                 </div>
