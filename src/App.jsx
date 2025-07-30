@@ -24,6 +24,7 @@ export default function App() {
     setUserInfo(data)
     try {
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register-user`, data)
+      console.log("Das hat funktioniert")
     } catch (err) {
       console.error("User info not saved:", err)
     }
