@@ -15,6 +15,8 @@ export default function UserInfoForm({ onSubmit }) {
             return
         }
 
+        console.log(import.meta.env.VITE_BACKEND_URL)
+
         if (parsedAge >= 18 && field) {
             const id = Math.random().toFixed(3).toString().slice(2)
             onSubmit({ age, field, id })
