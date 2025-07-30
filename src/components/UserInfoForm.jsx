@@ -15,7 +15,7 @@ export default function UserInfoForm({ onSubmit }) {
             return
         }
 
-        console.log(import.meta.env.VITE_BACKEND_URL)
+        console.log(`${import.meta.env.VITE_BACKEND_URL}/register-user`)
 
         if (parsedAge >= 18 && field) {
             const id = Math.random().toFixed(3).toString().slice(2)
