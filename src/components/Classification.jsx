@@ -22,7 +22,7 @@ export default function Classification({ userId }) {
     useEffect(() => {
         const fetchSentences = async () => {
             try {
-                const res = await axios.get('http://localhost:8000/sentences')
+                const res = await axios.get('`${import.meta.env.VITE_BACKEND_URL}/sentences')
                 setSamples(res.data)
             } catch (err) {
                 console.error('Error loading sentences:', err)
@@ -41,7 +41,7 @@ export default function Classification({ userId }) {
         }
 
         try {
-            await axios.post('http://localhost:8000/classify', payload)
+            await axios.post('`${import.meta.env.VITE_BACKEND_URL}/classify', payload)
             setSubmitted(true)
             setTimeout(() => {
                 setDominance(2)

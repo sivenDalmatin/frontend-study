@@ -23,7 +23,7 @@ export default function App() {
     console.log(data)
     setUserInfo(data)
     try {
-      await axios.post("http://localhost:8000/register-user", data)
+      await axios.post("`${import.meta.env.VITE_BACKEND_URL}/register-user", data)
     } catch (err) {
       console.error("User info not saved:", err)
     }
@@ -37,7 +37,7 @@ export default function App() {
     setDialogues(updatedDialogues)
 
     try {
-      const response = await axios.post('http://localhost:8000/save-dialogue', {
+      const response = await axios.post('`${import.meta.env.VITE_BACKEND_URL}/save-dialogue', {
         dialogue: messages,
         index: updatedDialogues.length,
         bot: currentBot,

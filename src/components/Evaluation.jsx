@@ -51,10 +51,10 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
                     ipc_f_guess: ratings[i].bot === 'gpt_default' ? null : parseInt(ratings[i].ipc_f_guess),
                 }
                 console.log(entry)
-                await axios.post('http://localhost:8000/evaluate', entry)
+                await axios.post('`${import.meta.env.VITE_BACKEND_URL}/evaluate', entry)
             }
 
-            await axios.post('http://localhost:8000/evaluate-summary', {
+            await axios.post('`${import.meta.env.VITE_BACKEND_URL}/evaluate-summary', {
                 user_id: userId,
                 ranking: overallFeedback.ranking,
                 reason: overallFeedback.reason,
@@ -205,7 +205,7 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
                                             onMouseEnter={() => setVisibleInfo(`d-${i}`)}
                                             onMouseLeave={() => setVisibleInfo(null)}
                                         >
-                                            <span className="text-gray-500 cursor-pointer">?</span>
+                                            <span className="text-gray-500 cursor-pointer">❓</span>
                                             {visibleInfo === `d-${i}` && (
                                                 <InfoPopup text="Dominanz beschreibt, wie stark eine Aussage als durchsetzungsfähig, kontrollierend oder unterwürfig erscheint. Sehr dominant = kontrollierend, sehr submissiv = zurückhaltend." />
                                             )}

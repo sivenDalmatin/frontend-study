@@ -30,7 +30,7 @@ export default function Intro({ onStart }) {
         Es wäre gut wenn Du einige Dialogpartner durchgehst um auch ein Gefühl für die Diversität der Patienten zu bekommen. Mindestens drei wären hier wichtig.
       </p>
       <p className="text-gray-700 italic">
-        Du hast 20 Minuten für die Dialoge, 10 Minuten für die erste Evaluation und 10 Minuten für die 2. Evalutation
+        Du hast 25 Minuten für die Dialoge, 5 Minuten für die erste Evaluation und 10 Minuten für die 2. Evalutation
       </p>
       <button
         onClick={onStart}
