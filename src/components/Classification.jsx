@@ -118,34 +118,58 @@ export default function Classification({ userId }) {
                         </div>
                     </div>
                     <div className="grid grid-cols-5 text-xs text-center mt-1">
-                        <span>Sehr freundlich</span>
-                        <span>Etwas freundlich</span>
-                        <span>Neutral</span>
-                        <span>Etwas feindlich</span>
-                        <span>Sehr feindlich</span>
+                        <span> <strong>Sehr freundlich:</strong> unterstützend, empathisch, herzlich</span>
+                        <span> <strong>Etwas freundlich:</strong> wohlwollend, kooperativ</span>
+                        <span><strong>Neutral:</strong> sachlich, emotionslos</span>
+                        <span><strong>Etwas feindlich:</strong> distanziert, ablehnend</span>
+                        <span><strong>Sehr feindlich:</strong> feindselig, konfrontativ, kalt</span>
                     </div>
                 </div>
 
 
                 {/* Dominance Scale */}
-                <div>
-                    <p className="font-semibold mb-1 text-center" >Dominanz</p>
-                    <div className="flex justify-between text-sm">
-                        {["Sehr submissiv", "Etwas submissiv", "Neutral", "Etwas dominant", "Sehr dominant"].map((label, i) => (
-                            <label key={i} className="flex flex-col items-center">
-                                <input
-                                    type="radio"
-                                    name="dominance"
-                                    value={i}
-                                    checked={dominance === i}
-                                    onChange={() => setDominance(i)}
-                                />
-                                <span>{label}</span>
-                            </label>
-                        ))}
+                <div className="w-full">
+                    <div className="flex items-center justify-center gap-2 mb-1">
+                        <p className="font-semibold text-center">Dominanz</p>
+                        <div
+                            className="relative"
+                            onMouseEnter={() => setVisibleInfo('f')}
+                            onMouseLeave={() => setVisibleInfo(null)}
+                        >
+                            <span className="text-gray-500 cursor-pointer">❓</span>
+                            {visibleInfo === 'f' && (
+                                <InfoPopup text="Dominanz beschreibt, wie stark eine Aussage als durchsetzungsfähig, kontrollierend oder unterwürfig erscheint. Sehr dominant = kontrollierend, sehr submissiv = zurückhaltend." />
+                            )}
+                        </div>
+                    </div>
+                    <div className="relative w-full h-10 flex items-center justify-center">
+                        <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gray-300 z-0" />
+                        <div className="grid grid-cols-5 gap-0 w-full z-10">
+                            {[0, 1, 2, 3, 4].map((val) => (
+                                <label key={val} className="flex flex-col items-center">
+                                    <input
+                                        type="radio"
+                                        name="dominance"
+                                        value={val}
+                                        checked={friendliness === val}
+                                        onChange={() => setDominance(val)}
+                                        className="peer hidden"
+                                    />
+                                    <div className={`w-4 h-4 rounded-full border-2 ${dominance === val ? 'bg-blue-600 border-blue-600' : 'bg-white border-gray-400'}`} />
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-5 text-xs text-center mt-1">
+                        <span> <strong>Sehr submissiv:</strong> unterwürfig, zurückhaltend, abhängig</span>
+                        <span><strong>Etwas submissiv:</strong> vorsichtig, nachgiebig</span>
+                        <span><strong>Neutral:</strong> weder dominant noch submissiv</span>
+                        <span><strong>Etwas dominant:</strong> selbstbewusst, leitend</span>
+                        <span><strong>Sehr dominant:</strong> kontrollierend, fordernd, bestimmend</span>
                     </div>
                 </div>
             </div>
+
 
             <button
                 onClick={handleSubmit}
