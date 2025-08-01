@@ -16,7 +16,9 @@ export default function Classification({ userId }) {
     const [dominance, setDominance] = useState(2)
     const [friendliness, setFriendliness] = useState(2)
     const [submitted, setSubmitted] = useState(false)
-    const [visibleInfo, setVisibleInfo] = useState(null)
+    const [visibleDominance, setVisibleDominance] = useState(null)
+    const [visibleFriendliness, setVisibleFriendliness] = useState(null)
+
 
 
     useEffect(() => {
@@ -59,12 +61,14 @@ export default function Classification({ userId }) {
     }
 
     if (index >= samples.length) {
-        return <p className="text-center text-green-600">Alle Sätze wurden klassifiziert. 🎉</p>
+        return (<div><p className="text-center text-green-600">Die Studie ist hiemit abgeschlossen 🎉</p> <p>Vielen Dank für die Teilnahme. Die Ihnen zugewiesene ID leutet: {userId}. Falls Sie im nachtrag die Daten löschen lassen möchten, schreiben Sie bitte eine Mail and finn.gessner@uni-muenster.de in der Sie auch Ihre ID nennen.</p></div>)
     }
 
     return (
         <div className="space-y-6">
             <div className="bg-yellow-100 border border-yellow-300 p-4 rounded text-sm text-gray-800">
+                <h3>Bitte Klassifiziere jeden der 15 Konversationsausschnitte nach Freundlichkeit und Dominanz. Die Skalen sind angelehnt an das Interpersonal Circumplex Model. Falls du dies nicht kennst, orientiere dich an den zugehörigen Adjektiven</h3>
+                <br />
                 <h3 className="font-semibold mb-2">Skalen-Erklärung</h3>
                 <p><strong>Freundlichkeit:</strong> Wie warm oder feindlich klingt die Aussage?</p>
                 <ul className="list-disc ml-6 mb-2">
@@ -90,11 +94,11 @@ export default function Classification({ userId }) {
                         <p className="font-semibold text-center">Freundlichkeit</p>
                         <div
                             className="relative"
-                            onMouseEnter={() => setVisibleInfo('f')}
-                            onMouseLeave={() => setVisibleInfo(null)}
+                            onMouseEnter={() => setVisibleFriendliness('f')}
+                            onMouseLeave={() => setVisibleFriendliness(null)}
                         >
                             <span className="text-gray-500 cursor-pointer">❓</span>
-                            {visibleInfo === 'f' && (
+                            {visibleFriendliness === 'f' && (
                                 <InfoPopup text="Freundlichkeit beschreibt, wie warm, empathisch oder feindlich eine Aussage erscheint. Sehr freundlich = herzlich, sehr feindlich = konfrontativ." />
                             )}
                         </div>
@@ -133,11 +137,11 @@ export default function Classification({ userId }) {
                         <p className="font-semibold text-center">Dominanz</p>
                         <div
                             className="relative"
-                            onMouseEnter={() => setVisibleInfo('f')}
-                            onMouseLeave={() => setVisibleInfo(null)}
+                            onMouseEnter={() => setVisibleDominance('f')}
+                            onMouseLeave={() => setVisibleDominance(null)}
                         >
                             <span className="text-gray-500 cursor-pointer">❓</span>
-                            {visibleInfo === 'f' && (
+                            {visibleDominance === 'f' && (
                                 <InfoPopup text="Dominanz beschreibt, wie stark eine Aussage als durchsetzungsfähig, kontrollierend oder unterwürfig erscheint. Sehr dominant = kontrollierend, sehr submissiv = zurückhaltend." />
                             )}
                         </div>

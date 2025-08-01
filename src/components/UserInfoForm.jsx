@@ -275,7 +275,7 @@ export default function UserInfoForm({ onSubmit }) {
                             <br />
                             <p>... ich freiwillig an der Studie teilnehme</p>
                             <br />
-                            <p>... ich Fragen stellen darf</p>
+                            <p>... ich Fragen stellen darf (per Mail an den Forscher)</p>
                             <br />
                             <p>... mir dieses Dokument vor der Studie gezeigt wurde.</p>
                         </div>

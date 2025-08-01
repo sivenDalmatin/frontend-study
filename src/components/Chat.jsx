@@ -128,7 +128,7 @@ export default function Chat({
                 />
                 <button
                     onClick={sendMessage}
-                    disabled={loading || messages.length >= 10}
+                    disabled={loading || messages.length >= 16}
                     className="bg-blue-600 hover:bg-blue-700 transition text-white px-4 py-2 rounded focus:outline-none focus:ring focus:ring-blue-300 disabled:opacity-50 hover:scale-[1.02] active:scale-[0.98]"
                 >
                     {loading ? 'Sendet' : 'Senden'}
@@ -137,8 +137,8 @@ export default function Chat({
 
             <div className="flex justify-between items-center">
                 <p className="text-sm text-gray-500">{remainingMinutes} Minute(n) übrig</p>
-                {messages.length >= 10 && (
-                    <p className="text-sm text-gray-500">Maximum von 5 turns (10 Nachrichten) erreicht.</p>
+                {messages.length >= 16 && (
+                    <p className="text-sm text-gray-500">Maximum von 8 turns (16 Nachrichten) erreicht.</p>
                 )}
                 <button
                     onClick={startNewDialogue}
