@@ -6,6 +6,7 @@ export default function UserInfoForm({ onSubmit }) {
     const [acceptedPrivacy, setAcceptedPrivacy] = useState(false)
     const [showPrivacy, setShowPrivacy] = useState(false)
     const [showConsent, setShowConsent] = useState(false)
+    const [acceptedConsent, setAcceptedConsent] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault()
