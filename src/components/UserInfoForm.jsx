@@ -6,6 +6,7 @@ export default function UserInfoForm({ onSubmit }) {
     const [acceptedPrivacy, setAcceptedPrivacy] = useState(false)
     const [showPrivacy, setShowPrivacy] = useState(false)
     const [showConsent, setShowConsent] = useState(false)
+    const [showSoR, setShowSoR] = useState(false)
     const [acceptedConsent, setAcceptedConsent] = useState(false);
 
     const handleSubmit = (e) => {
@@ -65,7 +66,15 @@ export default function UserInfoForm({ onSubmit }) {
                         className="text-blue-600 underline"
                         onClick={() => setShowPrivacy(true)}
                     >
-                        Datenschutzerklärung und Stellungnahme des Forschers.
+                        Datenschutzerklärung
+                    </button>{' '}
+                    und
+                    <button
+                        type="button"
+                        className="text-blue-600 underline"
+                        onClick={() => setShowSoR(true)}
+                    >
+                        Stellungnahme des Forschers
                     </button>{' '}
                     gelesen und akzeptiere sie.
                 </label>
@@ -178,6 +187,19 @@ export default function UserInfoForm({ onSubmit }) {
                                 processed. I have been informed of the scope and purpose of data collection and
                                 processing, as well as the right to withdraw consent. </p>
                         </div>
+
+                    </div>
+                </div>
+            )}
+            {showPrivacy && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white p-6 max-w-lg w-full rounded relative">
+                        <button
+                            onClick={() => setShowPrivacy(false)}
+                            className="absolute top-2 right-2 text-gray-600 hover:text-black"
+                        >
+                            ✖
+                        </button>
                         <h1 className="text-xl font-bold mb-2">Statement of the researcher</h1>
                         <div className="text-sm space-y-2 max-h-[60vh] overflow-y-auto text-left">
                             <h2>The author hereby states to comply with the 7 rules stated here:</h2>
@@ -209,11 +231,10 @@ export default function UserInfoForm({ onSubmit }) {
                                 the comparable time expense and effort must be made available.</p><br />
                             <p>7. I confirm I will provide de-briefing information based on the below form either verbally or
                                 in written form to all participants of the study.</p>
-
                         </div>
                     </div>
-                </div>
-            )}
+
+                </div>)}
 
 
             {showConsent && (
