@@ -16,7 +16,7 @@ export default function App() {
   const [messages, setMessages] = useState([])
   const [showIntroOverlay, setShowIntroOverlay] = useState(false)
 
-  const botVariants = ['gpt_default', 'icm_agent_0.5', 'neutral_agent_0.8']
+  const botVariants = ['gpt_default', 'icm_agent_0.5', 'neutral_agent_0.8', 'llama_agent']
   const [currentBot, setCurrentBot] = useState(botVariants[0])
 
   const handleUserInfoSubmit = async (data) => {
