@@ -100,10 +100,10 @@ export default function App() {
                 if (messages.length > 0) {
                   await saveDialogue()
                 }
-                if (dialogues.length >= 2) {
+                if (dialogues.length >= 3) {
                   setStep('evaluation')
                 } else {
-                  alert('Bitte führe mindestens 3 Dialoge, bevor du fortfährst.')
+                  alert('Bitte führe mindestens 4 Dialoge, bevor du fortfährst.')
                 }
               }}
               className="mt-4 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition"
