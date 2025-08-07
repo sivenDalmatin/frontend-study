@@ -11,6 +11,22 @@ function InfoPopup({ text }) {
     )
 }
 
+function QuestionMark({ text }) {
+    const [visible, setVisible] = useState(false)
+
+    return (
+        <div
+            className="relative"
+            onMouseEnter={() => setVisible(true)}
+            onMouseLeave={() => setVisible(false)}
+        >
+            <span className="text-gray-500 cursor-pointer">❓</span>
+            {visible && <InfoPopup text={text} />}
+        </div>
+    )
+}
+
+
 
 export default function Evaluation({ dialogues, logFilenames, onNext, userId }) {
     const [ratings, setRatings] = useState(
@@ -217,16 +233,7 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
                                 <div className="w-full mt-4">
                                     <div className="flex items-center justify-center gap-2">
                                         <p className="font-semibold text-center">Einschätzung der Dominanz</p>
-                                        <div
-                                            className="relative"
-                                            onMouseEnter={() => setVisibleInfo(`d-${i}`)}
-                                            onMouseLeave={() => setVisibleInfo(null)}
-                                        >
-                                            <span className="text-gray-500 cursor-pointer">❓</span>
-                                            {visibleInfo === `d-${i}` && (
-                                                <InfoPopup text="Dominanz beschreibt, wie stark eine Aussage als durchsetzungsfähig, kontrollierend oder unterwürfig erscheint. Sehr dominant = kontrollierend, sehr submissiv = zurückhaltend." />
-                                            )}
-                                        </div>
+                                        <QuestionMark text="Dominanz beschreibt, wie stark eine Aussage als durchsetzungsfähig, kontrollierend oder unterwürfig erscheint. Sehr dominant = kontrollierend, sehr submissiv = zurückhaltend." />
                                     </div>
                                     <div className="relative w-full h-10 flex items-center justify-center">
                                         <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gray-300 z-0" />
@@ -260,16 +267,7 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
                                 <div className="w-full mt-6">
                                     <div className="flex items-center justify-center gap-2">
                                         <p className="font-semibold text-center">Einschätzung der Freundlichkeit</p>
-                                        <div
-                                            className="relative"
-                                            onMouseEnter={() => setVisibleInfo(`f-${i}`)}
-                                            onMouseLeave={() => setVisibleInfo(null)}
-                                        >
-                                            <span className="text-gray-500 cursor-pointer">❓</span>
-                                            {visibleInfo === `f-${i}` && (
-                                                <InfoPopup text="Freundlichkeit beschreibt, wie warm, empathisch oder feindlich eine Aussage erscheint. Sehr freundlich = herzlich, sehr feindlich = konfrontativ." />
-                                            )}
-                                        </div>
+                                        <QuestionMark text="Freundlichkeit beschreibt, wie warm, empathisch oder feindlich eine Aussage erscheint. Sehr freundlich = herzlich, sehr feindlich = konfrontativ." />
                                     </div>
                                     <div className="relative w-full h-10 flex items-center justify-center">
                                         <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gray-300 z-0" />
