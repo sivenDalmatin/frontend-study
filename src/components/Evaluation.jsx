@@ -137,7 +137,11 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
                         <div className="flex flex-col gap-3 pt-2">
                             {/* Natürlichkeit / Glaubhaftigkeit */}
                             <div className="w-full">
-                                <p className="font-semibold text-center">Glaubhaftigkeit / Natürlichkeit</p>
+                                <div className="flex items-center justify-center gap-2">
+                                    <p className="font-semibold text-center">Glaubhaftigkeit / Natürlichkeit</p>
+                                    <QuestionMark text="Bewertet, ob die Aussagen des Patienten realistisch und glaubwürdig wirken. Eine hohe Bewertung bedeutet, dass der Patient natürlich und überzeugend erscheint." />
+                                </div>
+
                                 <div className="relative w-full h-10 flex items-center justify-center">
                                     <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gray-300 z-0" />
                                     <div className="grid grid-cols-5 gap-0 w-full z-10">
@@ -167,7 +171,11 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
 
                             {/* Emotionale Angemessenheit */}
                             <div className="w-full mt-4">
-                                <p className="font-semibold text-center">Emotionale Angemessenheit</p>
+                                <div className="flex items-center justify-center gap-2">
+                                    <p className="font-semibold text-center">Emotionale Angemessenheit</p>
+                                    <QuestionMark text="Bewertet, ob die emotionale Reaktion des Patienten zur Situation passt. Eine hohe Bewertung bedeutet, dass Emotionen passend und glaubhaft ausgedrückt wurden." />
+                                </div>
+
                                 <div className="relative w-full h-10 flex items-center justify-center">
                                     <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gray-300 z-0" />
                                     <div className="grid grid-cols-5 gap-0 w-full z-10">
@@ -196,9 +204,10 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
                             </div>
 
                             {/* Kohärenz */}
-                            <div className="w-full mt-4">
+                            <div className="w-full mt-4"><div className="flex items-center justify-center gap-2">
                                 <p className="font-semibold text-center">Kohärenz des Gesprächs</p>
-                                <QuestionMark text="Bewertet, ob die Aussagen des Patienten realistisch und glaubwürdig wirken. Eine hohe Bewertung bedeutet, dass der Patient natürlich und überzeugend erscheint." />
+                                <QuestionMark text="Bewertet, wie gut der Gesprächsverlauf zusammenhängt. Eine hohe Bewertung bedeutet, dass der Gesprächspartner konsistent bleibt und keine logischen Brüche zeigt." />
+                            </div>
                                 <div className="relative w-full h-10 flex items-center justify-center">
                                     <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gray-300 z-0" />
                                     <div className="grid grid-cols-5 gap-0 w-full z-10">

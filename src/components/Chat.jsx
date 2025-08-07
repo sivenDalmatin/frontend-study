@@ -162,7 +162,7 @@ export default function Chat({
             </div>
             <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-3 rounded text-sm my-2">
                 <p>
-                    Bitte führe <strong>mindestens 5 Dialogrunden</strong> pro Konversation durch und versuche so viele Konversationen wie möglich in der Zeit zu schaffen.
+                    Bitte führe <strong>mindestens 5 Dialogrunden</strong> pro Konversation durch und versuche so viele Konversationen (min. 4) wie möglich in der Zeit zu schaffen.
                 </p>
                 <p>Du bist ein <strong>Arzt</strong> der mit dem Patienten redet</p>
             </div>
