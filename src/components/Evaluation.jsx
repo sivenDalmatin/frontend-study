@@ -87,7 +87,7 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
 
             await axios.post(`${import.meta.env.VITE_BACKEND_URL}/evaluate-summary`, {
                 user_id: userId,
-                ranking: overallFeedback.ranking,
+                ranking: overallFeedback.ranking.split(',').map(e => e.trim()),
                 reason: overallFeedback.reason,
                 diversity: parseInt(overallFeedback.diversity),
             })
