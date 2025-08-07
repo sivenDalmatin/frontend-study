@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 
-const globalStartTime = Date.now()
-const MAX_TIME_MINUTES = 20
+const MAX_TIME_MINUTES = 25
 
 // Helper to generate random [friendliness, dominance] values
 const randomIcm = () => [Math.floor(Math.random() * 5), Math.floor(Math.random() * 5)]
@@ -21,6 +20,7 @@ export default function Chat({
 }) {
     const [input, setInput] = useState('')
     const [loading, setLoading] = useState(false)
+    const [startTime, setStartTime] = useState(null)
     const [remainingMinutes, setRemainingMinutes] = useState(MAX_TIME_MINUTES)
     const [llmIcm, setLlmIcm] = useState([2, 2])//useState(randomIcm()) // <-- ICM state
     const [patient, setPatient] = useState('')
@@ -28,14 +28,27 @@ export default function Chat({
     const intervalRef = useRef(null)
 
     useEffect(() => {
+        let savedStart = localStorage.getItem('chatStartTime')
+
+        if (!savedStart) {
+            savedStart = Date.now()
+            localStorage.setItem('chatStartTime', savedStart)
+        }
+
+        setStartTime(parseInt(savedStart))
+    }, [])
+
+    useEffect(() => {
+        if (!startTime) return
+
         intervalRef.current = setInterval(() => {
             const now = Date.now()
-            const elapsed = Math.floor((now - globalStartTime) / 60000)
+            const elapsed = Math.floor((now - startTime) / 60000)
             setRemainingMinutes(Math.max(0, MAX_TIME_MINUTES - elapsed))
         }, 10000)
 
         return () => clearInterval(intervalRef.current)
-    }, [])
+    }, [startTime])
 
     const sendMessage = async () => {
         if (!input.trim()) return
