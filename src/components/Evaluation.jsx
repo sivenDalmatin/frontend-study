@@ -198,6 +198,7 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
                             {/* Kohärenz */}
                             <div className="w-full mt-4">
                                 <p className="font-semibold text-center">Kohärenz des Gesprächs</p>
+                                <QuestionMark text="Bewertet, ob die Aussagen des Patienten realistisch und glaubwürdig wirken. Eine hohe Bewertung bedeutet, dass der Patient natürlich und überzeugend erscheint." />
                                 <div className="relative w-full h-10 flex items-center justify-center">
                                     <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gray-300 z-0" />
                                     <div className="grid grid-cols-5 gap-0 w-full z-10">
