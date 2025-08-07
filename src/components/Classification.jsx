@@ -13,8 +13,8 @@ function InfoPopup({ text }) {
 export default function Classification({ userId }) {
     const [samples, setSamples] = useState([])
     const [index, setIndex] = useState(0)
-    const [dominance, setDominance] = useState(2)
-    const [friendliness, setFriendliness] = useState(2)
+    const [dominance, setDominance] = useState(null)
+    const [friendliness, setFriendliness] = useState(null)
     const [submitted, setSubmitted] = useState(false)
     const [visibleDominance, setVisibleDominance] = useState(null)
     const [visibleFriendliness, setVisibleFriendliness] = useState(null)
@@ -46,8 +46,8 @@ export default function Classification({ userId }) {
             await axios.post(`${import.meta.env.VITE_BACKEND_URL}/classify`, payload)
             setSubmitted(true)
             setTimeout(() => {
-                setDominance(2)
-                setFriendliness(2)
+                setDominance(null)
+                setFriendliness(null)
                 setIndex(index + 1)
                 setSubmitted(false)
             }, 1000)
@@ -61,7 +61,7 @@ export default function Classification({ userId }) {
     }
 
     if (index >= samples.length) {
-        return (<div><p className="text-center text-green-600">Die Studie ist hiemit abgeschlossen 🎉</p> <p>Vielen Dank für die Teilnahme. Die Ihnen zugewiesene ID leutet: {userId}. Falls Sie im nachtrag die Daten löschen lassen möchten, schreiben Sie bitte eine Mail and finn.gessner@uni-muenster.de in der Sie auch Ihre ID nennen.</p></div>)
+        return (<div><p className="text-center text-green-600">Die Studie ist hiemit abgeschlossen 🎉</p> <p>Vielen Dank für die Teilnahme. Die Ihnen zugewiesene ID lautet: {userId}. Falls Sie im Nachtrag die Daten löschen lassen möchten, schreiben Sie bitte eine Mail and finn.gessner@uni-muenster.de in der Sie auch Ihre ID nennen.</p></div>)
     }
 
     return (
@@ -155,7 +155,7 @@ export default function Classification({ userId }) {
                                         type="radio"
                                         name="dominance"
                                         value={val}
-                                        checked={friendliness === val}
+                                        checked={dominance === val}
                                         onChange={() => setDominance(val)}
                                         className="peer hidden"
                                     />
@@ -177,7 +177,7 @@ export default function Classification({ userId }) {
 
             <button
                 onClick={handleSubmit}
-                disabled={submitted}
+                disabled={submitted || dominance === null || friendliness === null}
                 className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition disabled:opacity-50 hover:scale-[1.02] active:scale-[0.98]"
             >
                 {submitted ? 'Gespeichert!' : 'Absenden'}

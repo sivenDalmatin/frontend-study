@@ -15,11 +15,11 @@ function InfoPopup({ text }) {
 export default function Evaluation({ dialogues, logFilenames, onNext, userId }) {
     const [ratings, setRatings] = useState(
         dialogues.map((dialogue) => ({
-            realism: '3',
-            appropriateness: '3',
-            consistency: '3',
-            ipc_d_guess: '2',
-            ipc_f_guess: '2',
+            realism: null,
+            appropriateness: null,
+            consistency: null,
+            ipc_d_guess: null,
+            ipc_f_guess: null,
             feedback: '',
             bot: dialogue.bot,
         }))
@@ -27,10 +27,12 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
     const [overallFeedback, setOverallFeedback] = useState({
         ranking: '',
         reason: '',
-        diversity: '3',
+        diversity: '',
     })
     const [submitted, setSubmitted] = useState(false)
     const [visibleInfo, setVisibleInfo] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
+
 
     const handleChange = (i, field, value) => {
         const updated = [...ratings]
@@ -38,7 +40,20 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
         setRatings(updated)
     }
 
+    const allRatingsValid = ratings.every(rating => {
+        const baseFieldsComplete =
+            rating.realism !== null &&
+            rating.appropriateness !== null &&
+            rating.consistency !== null;
+
+        const ipcFieldsComplete = rating.bot === 'gpt_default' ||
+            (rating.ipc_d_guess !== null && rating.ipc_f_guess !== null);
+
+        return baseFieldsComplete && ipcFieldsComplete;
+    });
+
     const handleSubmit = async () => {
+        setIsLoading(true)
         try {
             for (let i = 0; i < ratings.length; i++) {
                 const entry = {
@@ -67,6 +82,8 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
             }
         } catch (err) {
             console.error('Error submitting evaluation:', err)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -342,10 +359,34 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
 
             <button
                 onClick={handleSubmit}
-                className="bg-blue-600 hover:bg-blue-700 transition text-white px-4 py-2 rounded focus:outline-none focus:ring focus:ring-blue-300 hover:scale-[1.02] active:scale-[0.98]"
+                disabled={!allRatingsValid || isLoading}
+                className="relative flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 transition text-white px-4 py-2 rounded focus:outline-none focus:ring focus:ring-blue-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
             >
-                Absenden und Fortfahren
+                {isLoading && (
+                    <svg
+                        className="animate-spin h-4 w-4 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                    >
+                        <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                        />
+                        <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8z"
+                        />
+                    </svg>
+                )}
+                {isLoading ? 'Absenden...' : 'Absenden und Fortfahren'}
             </button>
+
         </div>
     )
 }

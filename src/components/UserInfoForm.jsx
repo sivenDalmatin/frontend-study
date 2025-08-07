@@ -68,14 +68,14 @@ export default function UserInfoForm({ onSubmit }) {
                     >
                         Datenschutzerklärung
                     </button>{' '}
-                    und
+                    {/* und
                     <button
                         type="button"
                         className="text-blue-600 underline"
                         onClick={() => setShowSoR(true)}
                     >
                         Stellungnahme des Forschers
-                    </button>{' '}
+                    </button>{' '} */}
                     gelesen und akzeptiere sie.
                 </label>
             </div>

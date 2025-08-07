@@ -24,13 +24,13 @@ export default function Intro({ onStart }) {
         Zuerst sollst Du mit dem Chatbot hin und her schreiben. Du spielst dabei den Arzt und möchtest natürlich dem Patienten helfen. Es ist nicht wichtig eine korrekte Diagnose zu stellen. Es geht eher um die Persönlichkeit des Patienten.
       </p>
       <p className="text-gray-700">
-        Jeder Dialog ist auf 10 Nachrichten begrenzt. Diese musst du nicht ausreizen wenn Du merkst, dass diese Konversation nirgendwo mehr hinführt.
+        Jeder Dialog ist auf 8 Nachrichten begrenzt. Diese musst du nicht ausreizen wenn Du merkst, dass diese Konversation nirgendwo mehr hinführt.
       </p>
       <p className="text-gray-700">
-        Es wäre gut wenn Du einige Dialogpartner durchgehst um auch ein Gefühl für die Diversität der Patienten zu bekommen. Mindestens drei wären hier wichtig.
+        Du musst mindestens 4 Dialogpartner durchgehen um ein Gefühl für die Diversität der Patienten zu bekommen.
       </p>
       <p className="text-gray-700 italic">
-        Du hast 25 Minuten für die Dialoge, 5 Minuten für die erste Evaluation und 10 Minuten für die 2. Evalutation
+        Du hast 25 Minuten für die Dialoge, 10 Minuten für die erste Evaluation und 10 Minuten für die 2. Evalutation
       </p>
       <button
         onClick={onStart}
