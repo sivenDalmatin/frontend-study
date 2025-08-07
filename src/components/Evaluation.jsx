@@ -43,7 +43,7 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
     const [overallFeedback, setOverallFeedback] = useState({
         ranking: '',
         reason: '',
-        diversity: '',
+        diversity: null,
     })
     const [submitted, setSubmitted] = useState(false)
     const [visibleInfo, setVisibleInfo] = useState(null)
@@ -349,20 +349,38 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
                     />
                 </label>
 
-                <label>
-                    Wie divers waren die Patienten deiner Meinung nach?
-                    <select
-                        value={overallFeedback.diversity}
-                        onChange={e => setOverallFeedback({ ...overallFeedback, diversity: e.target.value })}
-                        className="block w-full p-2 border rounded"
-                    >
-                        <option value="1">Sehr ähnlich</option>
-                        <option value="2">Ähnlich</option>
-                        <option value="3">Neutral</option>
-                        <option value="4">Unterschiedlich</option>
-                        <option value="5">Sehr unterschiedlich</option>
-                    </select>
-                </label>
+                <div className="w-full mt-4">
+                    <div className="flex items-center justify-center gap-2">
+                        <p className="font-semibold text-center">Diversität der Patienten</p>
+                        <QuestionMark text="Bewertet, wie unterschiedlich die simulierten Patienten auf dich wirkten – z. B. in Persönlichkeit, Ausdruck oder Verhalten." />
+                    </div>
+                    <div className="relative w-full h-10 flex items-center justify-center">
+                        <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gray-300 z-0" />
+                        <div className="grid grid-cols-5 gap-0 w-full z-10">
+                            {[1, 2, 3, 4, 5].map((val) => (
+                                <label key={val} className="flex flex-col items-center">
+                                    <input
+                                        type="radio"
+                                        name="diversity"
+                                        value={val}
+                                        checked={parseInt(overallFeedback.diversity) === val}
+                                        onChange={() => setOverallFeedback({ ...overallFeedback, diversity: val.toString() })}
+                                        className="peer hidden"
+                                    />
+                                    <div className={`w-4 h-4 rounded-full border-2 ${parseInt(overallFeedback.diversity) === val ? 'bg-blue-600 border-blue-600' : 'bg-white border-gray-400'}`} />
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-5 text-xs text-center mt-1">
+                        <span>Sehr ähnlich</span>
+                        <span>Ähnlich</span>
+                        <span>Neutral</span>
+                        <span>Unterschiedlich</span>
+                        <span>Sehr unterschiedlich</span>
+                    </div>
+                </div>
+
             </div>
 
             <button
