@@ -20,11 +20,11 @@ export default function Chat({
 }) {
     const [input, setInput] = useState('')
     const [loading, setLoading] = useState(false)
-    const [startTime, setStartTime] = useState(null)
     const [remainingMinutes, setRemainingMinutes] = useState(MAX_TIME_MINUTES)
-    const [llmIcm, setLlmIcm] = useState([2, 2])//useState(randomIcm()) // <-- ICM state
+    const [llmIcm, setLlmIcm] = useState([2, 2]) // <-- ICM state
     const [patient, setPatient] = useState('')
 
+    const startTimeRef = useRef(null) // Use ref to store the start time
     const intervalRef = useRef(null)
 
     useEffect(() => {
@@ -35,21 +35,22 @@ export default function Chat({
             localStorage.setItem('chatStartTime', savedStart)
         }
 
-        // Set startTime only once
-        setStartTime(parseInt(savedStart))
-    }, [])
+        // Set startTimeRef only once
+        startTimeRef.current = parseInt(savedStart)
+    }, [])  // Only run once on mount
 
     useEffect(() => {
-        if (!startTime) return
+        // If startTimeRef is set, begin the interval timer
+        if (!startTimeRef.current) return
 
         intervalRef.current = setInterval(() => {
             const now = Date.now()
-            const elapsed = Math.floor((now - startTime) / 60000)
+            const elapsed = Math.floor((now - startTimeRef.current) / 60000) // Get elapsed time in minutes
             setRemainingMinutes(Math.max(0, MAX_TIME_MINUTES - elapsed))
         }, 10000)
 
-        return () => clearInterval(intervalRef.current)
-    }, [startTime])
+        return () => clearInterval(intervalRef.current) // Clean up interval on unmount
+    }, [])  // This effect runs only once after the initial mount
 
     const sendMessage = async () => {
         if (!input.trim()) return
@@ -73,7 +74,7 @@ export default function Chat({
             if (res.data.patient !== undefined) {
                 setPatient(res.data.patient)
             }
-            // Update ICM state if present in response
+
             if (res.data.llm_icm !== undefined) {
                 setLlmIcm(res.data.llm_icm)
             }
