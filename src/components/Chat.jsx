@@ -35,6 +35,7 @@ export default function Chat({
             localStorage.setItem('chatStartTime', savedStart)
         }
 
+        // Set startTime only once
         setStartTime(parseInt(savedStart))
     }, [])
 
