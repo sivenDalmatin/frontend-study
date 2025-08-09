@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 const MAX_TIME_MINUTES = 25
+const END_TIME_KEY = 'chatEndTime'
 
 // Helper to generate random [friendliness, dominance] values
 const randomIcm = () => [Math.floor(Math.random() * 5), Math.floor(Math.random() * 5)]
@@ -24,33 +25,23 @@ export default function Chat({
     const [llmIcm, setLlmIcm] = useState([2, 2]) // <-- ICM state
     const [patient, setPatient] = useState('')
 
-    const startTimeRef = useRef(null) // Use ref to store the start time
-    const intervalRef = useRef(null)
-
+    // Simple, robust countdown using a fixed endTime in localStorage
     useEffect(() => {
-        let savedStart = localStorage.getItem('chatStartTime')
-
-        if (!savedStart) {
-            savedStart = Date.now()
-            localStorage.setItem('chatStartTime', savedStart)
+        let endTime = parseInt(localStorage.getItem(END_TIME_KEY), 10)
+        if (!endTime || Date.now() > endTime) {
+            endTime = Date.now() + MAX_TIME_MINUTES * 60_000
+            localStorage.setItem(END_TIME_KEY, String(endTime))
         }
 
-        // Set startTimeRef only once
-        startTimeRef.current = parseInt(savedStart)
-    }, [])  // Only run once on mount
+        const updateTime = () => {
+            const diff = endTime - Date.now()
+            setRemainingMinutes(Math.max(0, Math.ceil(diff / 60000)))
+        }
 
-    useEffect(() => {
-        // If startTimeRef is set, begin the interval timer
-        if (!startTimeRef.current) return
-
-        intervalRef.current = setInterval(() => {
-            const now = Date.now()
-            const elapsed = Math.floor((now - startTimeRef.current) / 60000) // Get elapsed time in minutes
-            setRemainingMinutes(Math.max(0, MAX_TIME_MINUTES - elapsed))
-        }, 10000)
-
-        return () => clearInterval(intervalRef.current) // Clean up interval on unmount
-    }, [])  // This effect runs only once after the initial mount
+        updateTime()
+        const interval = setInterval(updateTime, 1000)
+        return () => clearInterval(interval)
+    }, [])
 
     const sendMessage = async () => {
         if (!input.trim()) return
@@ -65,19 +56,14 @@ export default function Chat({
                 user: input,
                 history: newMessages,
                 bot: botId,
-                llm_icm: llmIcm, // <-- include current IPC state
+                llm_icm: llmIcm, // <-- include current ICM state
                 patient: patient
             })
 
             setMessages([...newMessages, { role: 'assistant', content: res.data.response }])
 
-            if (res.data.patient !== undefined) {
-                setPatient(res.data.patient)
-            }
-
-            if (res.data.llm_icm !== undefined) {
-                setLlmIcm(res.data.llm_icm)
-            }
+            if (res.data.patient !== undefined) setPatient(res.data.patient)
+            if (res.data.llm_icm !== undefined) setLlmIcm(res.data.llm_icm)
         } catch (err) {
             console.error('Error:', err)
         } finally {
@@ -117,7 +103,7 @@ export default function Chat({
         setMessages([])
         setInput('')
         setPatient('')
-        setLlmIcm([2, 2]) // <-- reset IPC state for next session
+        setLlmIcm([2, 2]) // <-- reset ICM state for next session
     }
 
     return (
@@ -162,6 +148,7 @@ export default function Chat({
                     Starte neuen Dialog
                 </button>
             </div>
+
             <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-3 rounded text-sm my-2">
                 <p>
                     Bitte führe <strong>mindestens 5 Dialogrunden</strong> pro Konversation durch und versuche so viele Konversationen (min. 4) wie möglich in der Zeit zu schaffen.
