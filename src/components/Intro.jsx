@@ -21,17 +21,18 @@ export default function Intro({ onStart }) {
         Die Evaluation ein paar andere Konversationen.
       </p>
       <p className="text-gray-700">
-        Zuerst sollst Du mit dem Chatbot hin und her schreiben. Du spielst dabei den Arzt und möchtest natürlich dem Patienten helfen. Es ist nicht wichtig eine korrekte Diagnose zu stellen. Es geht eher um die Persönlichkeit des Patienten.
+        Zuerst sollst Du Konversationen mit dem Chatbot halten. Du spielst den Arzt und möchtest dem Patienten helfen. Die medizinische Richtigkeit der Diagnose ist nicht relevant. Es geht um die Persönlichkeit des Patienten.
       </p>
       <p className="text-gray-700">
-        Jeder Dialog ist auf 8 Nachrichten begrenzt. Diese musst du nicht ausreizen wenn Du merkst, dass diese Konversation nirgendwo mehr hinführt.
+        Jeder Dialog ist auf 8 Nachrichten begrenzt. Diese musst du nicht ausreizen, wenn Du merkst, dass eine Konversation an ihrem inhaltlichen Ende steht.
       </p>
       <p className="text-gray-700">
-        Du musst mindestens 4 Dialogpartner durchgehen um ein Gefühl für die Diversität der Patienten zu bekommen.
+        Du hast 25 Minuten um die Dialoge durchzuführen. Das Minimum an Konversationen dass du halten sollst sind vier Konversationen, besser sind aber mehr
       </p>
       <p className="text-gray-700 italic">
-        Du hast 25 Minuten für die Dialoge, 10 Minuten für die erste Evaluation und 10 Minuten für die 2. Evalutation
+        Nach den Dialogen hast du 10 Minuten für die erste Evaluation und 10 Minuten für die 2. Evalutation
       </p>
+      <p className='text-red-600 italic'>Bitte führe diese Umfrage am Stück durch und lade die Seite nicht neu</p>
       <button
         onClick={onStart}
         className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded shadow-lg transition hover:scale-[1.02] active:scale-[0.98]"
