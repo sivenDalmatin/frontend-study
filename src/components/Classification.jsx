@@ -18,6 +18,8 @@ export default function Classification({ userId }) {
     const [submitted, setSubmitted] = useState(false)
     const [visibleDominance, setVisibleDominance] = useState(null)
     const [visibleFriendliness, setVisibleFriendliness] = useState(null)
+    const [confirmation, setConfirmation] = useState(false)
+    const [finalSubmitted, setFinalSubmitted] = useState(false)
 
 
 
@@ -61,7 +63,57 @@ export default function Classification({ userId }) {
     }
 
     if (index >= samples.length) {
-        return (<div><p className="text-center text-green-600">Die Studie ist hiemit abgeschlossen 🎉</p> <p>Vielen Dank für die Teilnahme. Die Ihnen zugewiesene ID lautet: {userId}. Falls Sie im Nachtrag die Daten löschen lassen möchten, schreiben Sie bitte eine Mail and finn.gessner@uni-muenster.de in der Sie auch Ihre ID nennen.</p></div>)
+        return (
+            <div className="space-y-4">
+                <p className="text-center text-green-600 font-semibold text-lg">Die Studie ist hiermit abgeschlossen 🎉</p>
+                <p>
+                    Vielen Dank für die Teilnahme. Die Ihnen zugewiesene ID lautet: <strong>{userId}</strong>.
+                    Falls Sie im Nachtrag die Daten löschen lassen möchten, schreiben Sie bitte eine Mail an <a className="text-blue-600 underline" href="mailto:finn.gessner@uni-muenster.de">finn.gessner@uni-muenster.de</a> mit Ihrer ID.
+                </p>
+
+                {!finalSubmitted && (
+                    <div className="bg-gray-100 border border-gray-300 p-4 rounded space-y-4">
+                        <p className="text-sm">
+                            Bitte bestätigen Sie abschließend:
+                        </p>
+
+                        <label className="flex items-start gap-2 text-sm">
+                            <input
+                                type="checkbox"
+                                checked={confirmation}
+                                onChange={(e) => setConfirmation(e.target.checked)}
+                                className="mt-1"
+                            />
+                            <span>
+                                Ich habe die Fragen <strong>wahrheitsgemäß</strong> und <strong>gewissenhaft</strong> beantwortet. Diese Angabe hat keinen Einfluss auf die Vergütung.
+                            </span>
+                        </label>
+
+                        <button
+                            disabled={!confirmation}
+                            onClick={async () => {
+                                try {
+                                    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/final-confirmation`, {
+                                        userId,
+                                        confirmation: true
+                                    })
+                                    setFinalSubmitted(true)
+                                } catch (err) {
+                                    console.error('Fehler beim Speichern der Bestätigung:', err)
+                                }
+                            }}
+                            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition disabled:opacity-50"
+                        >
+                            Abschließen
+                        </button>
+                    </div>
+                )}
+
+                {finalSubmitted && (
+                    <p className="text-green-700 font-semibold">Ihre Bestätigung wurde gespeichert. Sie können das Fenster jetzt schließen. Vielen Dank!</p>
+                )}
+            </div>
+        )
     }
 
     return (
