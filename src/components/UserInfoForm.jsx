@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 export default function UserInfoForm({ onSubmit }) {
     const [age, setAge] = useState('')
     const [field, setField] = useState('')
+    const [gender, setGender] = useState('')
     const [acceptedPrivacy, setAcceptedPrivacy] = useState(false)
     const [showPrivacy, setShowPrivacy] = useState(false)
     const [showConsent, setShowConsent] = useState(false)
@@ -22,7 +23,7 @@ export default function UserInfoForm({ onSubmit }) {
 
         if (parsedAge >= 18 && field) {
             const id = Math.random().toFixed(3).toString().slice(2)
-            onSubmit({ age, field, id })
+            onSubmit({ age, field, id, gender })
         } else {
             alert("Du musst mindestens 18 Jahre alt sein, um teilzunehmen.")
         }
@@ -51,6 +52,19 @@ export default function UserInfoForm({ onSubmit }) {
                 <option value="psychology">Psychologie-nah</option>
                 <option value="medicine">Medizin-nah</option>
                 <option value="other">Andere</option>
+            </select>
+
+            <select
+                value={gender}
+                onChange={e => setGender(e.target.value)}
+                className="w-full border p-2 rounded"
+                required
+            >
+                <option value="" disabled>Wähle Dein Geschlecht</option>
+                <option value="male">männlich</option>
+                <option value="female">weiblich</option>
+                <option value="other">Sonstiges</option>
+                <option value="none">Ich möchte nicht antworten</option>
             </select>
 
             <div className="text-left flex items-start gap-2">
@@ -264,7 +278,7 @@ export default function UserInfoForm({ onSubmit }) {
                             <h4>Dauer:</h4>
                             <p>30-45 Minuten</p>
                             <h4>Vergütung:</h4>
-                            <p>Für Psychologiestudenten der Universität Münster wird es möglich sein sich VP Stunden anrechnen zu lassen.</p>
+                            <p>Für Psychologiestudenten der Universität Münster wird es möglich sein sich eine VP Stunde anrechnen zu lassen.</p>
                             <br />
                             <p>Sie können zu jeder Zeit ohne Angabe von Gründen die Studie abbrechen und Ihre
                                 Antworten zurückziehen. Dies hat keine weiteren Konsequenzen für Sie. Bei Fragen melden Sie sich beim Forscher.

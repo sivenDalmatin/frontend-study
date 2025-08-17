@@ -121,7 +121,7 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
                     <strong>Kohärenz:</strong> War der Gesprächsverlauf schlüssig und zusammenhängend? Gab es ausbrüche aus der Rolle?
                 </p>
                 <p>
-                    <strong>IPC-Profil (nur bei einigen Konversationen):</strong> Hier sollen das Dominanzlevel und Freundlichkeitslevel eingeordnet werden.
+                    <strong>IPC-Profil:</strong> Hier sollen das Dominanzlevel und Freundlichkeitslevel eingeordnet werden.
                 </p>
             </div>
 
@@ -238,75 +238,71 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
 
 
                         <div className="bg-gray-100 p-3 rounded border border-gray-300 space-y-6 mt-2">
-                            {ratings[i].bot !== 'gpt_default' && (
-
-                                <div className="w-full mt-4">
-                                    <div className="flex items-center justify-center gap-2">
-                                        <p className="font-semibold text-center">Einschätzung der Dominanz</p>
-                                        <QuestionMark text="Dominanz beschreibt, wie stark eine Aussage als durchsetzungsfähig, kontrollierend oder unterwürfig erscheint. Sehr dominant = kontrollierend, sehr submissiv = zurückhaltend." />
-                                    </div>
-                                    <div className="relative w-full h-10 flex items-center justify-center">
-                                        <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gray-300 z-0" />
-                                        <div className="grid grid-cols-5 gap-0 w-full z-10">
-                                            {[0, 1, 2, 3, 4].map((val) => (
-                                                <label key={val} className="flex flex-col items-center">
-                                                    <input
-                                                        type="radio"
-                                                        name={`ipc_d_guess_${i}`}
-                                                        value={val}
-                                                        checked={parseInt(ratings[i].ipc_d_guess) === val}
-                                                        onChange={() => handleChange(i, 'ipc_d_guess', val.toString())}
-                                                        className="peer hidden"
-                                                    />
-                                                    <div className={`w-4 h-4 rounded-full border-2 ${parseInt(ratings[i].ipc_d_guess) === val ? 'bg-blue-600 border-blue-600' : 'bg-white border-gray-400'}`} />
-                                                </label>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className="grid grid-cols-5 text-xs text-center mt-1">
-                                        <span> <strong>Sehr submissiv:</strong> unterwürfig, zurückhaltend, abhängig</span>
-                                        <span><strong>Etwas submissiv:</strong> vorsichtig, nachgiebig</span>
-                                        <span><strong>Neutral:</strong> weder dominant noch submissiv</span>
-                                        <span><strong>Etwas dominant:</strong> selbstbewusst, leitend</span>
-                                        <span><strong>Sehr dominant:</strong> kontrollierend, fordernd, bestimmend</span>
+                            <div className="w-full mt-4">
+                                <div className="flex items-center justify-center gap-2">
+                                    <p className="font-semibold text-center">Einschätzung der Dominanz</p>
+                                    <QuestionMark text="Dominanz beschreibt, wie stark eine Aussage als durchsetzungsfähig, kontrollierend oder unterwürfig erscheint. Sehr dominant = kontrollierend, sehr submissiv = zurückhaltend." />
+                                </div>
+                                <div className="relative w-full h-10 flex items-center justify-center">
+                                    <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gray-300 z-0" />
+                                    <div className="grid grid-cols-5 gap-0 w-full z-10">
+                                        {[0, 1, 2, 3, 4].map((val) => (
+                                            <label key={val} className="flex flex-col items-center">
+                                                <input
+                                                    type="radio"
+                                                    name={`ipc_d_guess_${i}`}
+                                                    value={val}
+                                                    checked={parseInt(ratings[i].ipc_d_guess) === val}
+                                                    onChange={() => handleChange(i, 'ipc_d_guess', val.toString())}
+                                                    className="peer hidden"
+                                                />
+                                                <div className={`w-4 h-4 rounded-full border-2 ${parseInt(ratings[i].ipc_d_guess) === val ? 'bg-blue-600 border-blue-600' : 'bg-white border-gray-400'}`} />
+                                            </label>
+                                        ))}
                                     </div>
                                 </div>
-                            )}
+                                <div className="grid grid-cols-5 text-xs text-center mt-1">
+                                    <span> <strong>Sehr submissiv:</strong> unterwürfig, zurückhaltend, abhängig</span>
+                                    <span><strong>Etwas submissiv:</strong> vorsichtig, nachgiebig</span>
+                                    <span><strong>Neutral:</strong> weder dominant noch submissiv</span>
+                                    <span><strong>Etwas dominant:</strong> selbstbewusst, leitend</span>
+                                    <span><strong>Sehr dominant:</strong> kontrollierend, fordernd, bestimmend</span>
+                                </div>
+                            </div>
 
-                            {ratings[i].bot !== 'gpt_default' && (
-                                <div className="w-full mt-6">
-                                    <div className="flex items-center justify-center gap-2">
-                                        <p className="font-semibold text-center">Einschätzung der Freundlichkeit</p>
-                                        <QuestionMark text="Freundlichkeit beschreibt, wie warm, empathisch oder feindlich eine Aussage erscheint. Sehr freundlich = herzlich, sehr feindlich = konfrontativ." />
-                                    </div>
-                                    <div className="relative w-full h-10 flex items-center justify-center">
-                                        <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gray-300 z-0" />
-                                        <div className="grid grid-cols-5 gap-0 w-full z-10">
-                                            {[0, 1, 2, 3, 4].map((val) => (
-                                                <label key={val} className="flex flex-col items-center">
-                                                    <input
-                                                        type="radio"
-                                                        name={`ipc_f_guess_${i}`}
-                                                        value={val}
-                                                        checked={parseInt(ratings[i].ipc_f_guess) === val}
-                                                        onChange={() => handleChange(i, 'ipc_f_guess', val.toString())}
-                                                        className="peer hidden"
-                                                    />
-                                                    <div className={`w-4 h-4 rounded-full border-2 ${parseInt(ratings[i].ipc_f_guess) === val ? 'bg-blue-600 border-blue-600' : 'bg-white border-gray-400'}`} />
-                                                </label>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className="grid grid-cols-5 text-xs text-center mt-1">
-                                        <span> <strong>Sehr freundlich:</strong> unterstützend, empathisch, herzlich</span>
-                                        <span> <strong>Etwas freundlich:</strong> wohlwollend, kooperativ</span>
-                                        <span><strong>Neutral:</strong> sachlich, emotionslos</span>
-                                        <span><strong>Etwas feindlich:</strong> distanziert, ablehnend</span>
-                                        <span><strong>Sehr feindlich:</strong> feindselig, konfrontativ, kalt</span>
+
+
+                            <div className="w-full mt-6">
+                                <div className="flex items-center justify-center gap-2">
+                                    <p className="font-semibold text-center">Einschätzung der Freundlichkeit</p>
+                                    <QuestionMark text="Freundlichkeit beschreibt, wie warm, empathisch oder feindlich eine Aussage erscheint. Sehr freundlich = herzlich, sehr feindlich = konfrontativ." />
+                                </div>
+                                <div className="relative w-full h-10 flex items-center justify-center">
+                                    <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gray-300 z-0" />
+                                    <div className="grid grid-cols-5 gap-0 w-full z-10">
+                                        {[0, 1, 2, 3, 4].map((val) => (
+                                            <label key={val} className="flex flex-col items-center">
+                                                <input
+                                                    type="radio"
+                                                    name={`ipc_f_guess_${i}`}
+                                                    value={val}
+                                                    checked={parseInt(ratings[i].ipc_f_guess) === val}
+                                                    onChange={() => handleChange(i, 'ipc_f_guess', val.toString())}
+                                                    className="peer hidden"
+                                                />
+                                                <div className={`w-4 h-4 rounded-full border-2 ${parseInt(ratings[i].ipc_f_guess) === val ? 'bg-blue-600 border-blue-600' : 'bg-white border-gray-400'}`} />
+                                            </label>
+                                        ))}
                                     </div>
                                 </div>
-
-                            )}
+                                <div className="grid grid-cols-5 text-xs text-center mt-1">
+                                    <span> <strong>Sehr freundlich:</strong> unterstützend, empathisch, herzlich</span>
+                                    <span> <strong>Etwas freundlich:</strong> wohlwollend, kooperativ</span>
+                                    <span><strong>Neutral:</strong> sachlich, emotionslos</span>
+                                    <span><strong>Etwas feindlich:</strong> distanziert, ablehnend</span>
+                                    <span><strong>Sehr feindlich:</strong> feindselig, konfrontativ, kalt</span>
+                                </div>
+                            </div>
                         </div>
 
                         <label>
