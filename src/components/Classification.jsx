@@ -15,6 +15,9 @@ export default function Classification({ userId }) {
     const [index, setIndex] = useState(0)
     const [dominance, setDominance] = useState(null)
     const [friendliness, setFriendliness] = useState(null)
+    const [wantsVP, setWantsVP] = useState(false)
+    const [vpName, setVpName] = useState('')
+    const [vpEmail, setVpEmail] = useState('')
     const [submitted, setSubmitted] = useState(false)
     const [visibleDominance, setVisibleDominance] = useState(null)
     const [visibleFriendliness, setVisibleFriendliness] = useState(null)
@@ -88,6 +91,40 @@ export default function Classification({ userId }) {
                                 Ich habe die Fragen <strong>wahrheitsgemäß</strong> und <strong>gewissenhaft</strong> beantwortet. Diese Angabe hat keinen Einfluss auf die Vergütung.
                             </span>
                         </label>
+                        <div className="mt-4 space-y-2">
+                            <p className="text-sm font-medium">Möchten Sie sich VP-Stunden anrechnen lassen?</p>
+                            <label className="flex items-center gap-2 text-sm">
+                                <input
+                                    type="checkbox"
+                                    checked={wantsVP}
+                                    onChange={(e) => setWantsVP(e.target.checked)}
+                                />
+                                Ja, ich möchte VP-Stunden anrechnen lassen
+                            </label>
+
+                            {wantsVP && (
+                                <div className="space-y-2">
+                                    <div>
+                                        <label className="block text-sm font-medium">Name</label>
+                                        <input
+                                            type="text"
+                                            value={vpName}
+                                            onChange={(e) => setVpName(e.target.value)}
+                                            className="border border-gray-300 rounded px-2 py-1 w-full"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium">Uni-E-Mail-Adresse</label>
+                                        <input
+                                            type="email"
+                                            value={vpEmail}
+                                            onChange={(e) => setVpEmail(e.target.value)}
+                                            className="border border-gray-300 rounded px-2 py-1 w-full"
+                                        />
+                                    </div>
+                                </div>
+                            )}
+                        </div>
 
                         <button
                             disabled={!confirmation}
