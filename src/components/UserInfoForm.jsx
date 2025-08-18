@@ -265,20 +265,20 @@ export default function UserInfoForm({ onSubmit }) {
                             {/* Deine Einverständniserklärung hier einfügen */}
                             <h2>Studientitel: Studie zum Einsatz von KI als Patientensimulation</h2>
                             <p>Liebe/r Teilnehmer/in,vielen Dank für Ihre Teilnahme an der Studie</p>
-                            <h4>Forscher:</h4>
+                            <h3>Forscher:</h3>
                             <p>Finn Ole Geßner [finn.gessner@uni-muenster.de] (BSc student of Geoinformatics)</p>
-                            <h4>Zweck der Studie:</h4>
+                            <h3>Zweck der Studie:</h3>
                             <p>Diese Studie soll evaluieren, wie gut KI-Chatbots zur Patientensimulation und zum
                                 Kommunikationstraining für Medizinstudenten geeignet sind. Im Vordergrund steht dabei die
                                 Persönlichkeit des Chatbots. Die Diversität, Realismus und charakterliche Entwicklung.</p>
-                            <h4>Vorgehensweise:</h4>
+                            <h3>Vorgehensweise:</h3>
                             <p>Die Studie ist in drei Teilen aufgebaut: 1. Interagieren mit den Chatbots. Die Teilnehmenden
                                 sind dabei die Doktor:innen. Die Konversationen sollen möglichst realistisch sein 2.
                                 Evaluation der vorangegangen Gespräche 3. Evaluation einiger andere Gespräche</p>
-                            <h4>Dauer:</h4>
+                            <h3>Dauer:</h3>
                             <p>30-45 Minuten</p>
-                            <h4>Vergütung:</h4>
-                            <p>Für Psychologiestudenten der Universität Münster wird es möglich sein sich eine VP Stunde anrechnen zu lassen.</p>
+                            <h3>Vergütung:</h3>
+                            <p>Für Psychologiestudierende der Universität Münster wird es möglich sein sich eine VP Stunde anrechnen zu lassen.</p>
                             <br />
                             <p>Sie können zu jeder Zeit ohne Angabe von Gründen die Studie abbrechen und Ihre
                                 Antworten zurückziehen. Dies hat keine weiteren Konsequenzen für Sie. Bei Fragen melden Sie sich beim Forscher.

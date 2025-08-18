@@ -32,7 +32,6 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
     const [ratings, setRatings] = useState(
         dialogues.map((dialogue) => ({
             realism: null,
-            appropriateness: null,
             consistency: null,
             ipc_d_guess: null,
             ipc_f_guess: null,
@@ -59,7 +58,6 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
     const allRatingsValid = ratings.every(rating => {
         const baseFieldsComplete =
             rating.realism !== null &&
-            rating.appropriateness !== null &&
             rating.consistency !== null;
 
         const ipcFieldsComplete = rating.bot === 'gpt_default' ||
@@ -74,7 +72,6 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
             for (let i = 0; i < ratings.length; i++) {
                 const entry = {
                     realism: parseInt(ratings[i].realism),
-                    appropriateness: parseInt(ratings[i].appropriateness),
                     consistency: parseInt(ratings[i].consistency),
                     feedback: ratings[i].feedback.trim(),
                     log_filename: logFilenames[i],
@@ -113,9 +110,6 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
                 <h3 className="font-semibold mb-2">Bewertungshinweise:</h3>
                 <p>
                     <strong>Natürlichkeit / Glaubhaftigkeit:</strong> Fühlte sich der/die Patient:in glaubhaft und realistisch an?
-                </p>
-                <p>
-                    <strong>Angemessenheit der Emotion:</strong> Waren die emotionalen Reaktionen angemessen und realistisch?
                 </p>
                 <p>
                     <strong>Kohärenz:</strong> War der Gesprächsverlauf schlüssig und zusammenhängend? Gab es ausbrüche aus der Rolle?
@@ -166,40 +160,6 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
                                     <span>Neutral</span>
                                     <span>Glaubhaft</span>
                                     <span>Sehr glaubhaft</span>
-                                </div>
-                            </div>
-
-                            {/* Emotionale Angemessenheit */}
-                            <div className="w-full mt-4">
-                                <div className="flex items-center justify-center gap-2">
-                                    <p className="font-semibold text-center">Emotionale Angemessenheit</p>
-                                    <QuestionMark text="Bewertet, ob die emotionale Reaktion des Patienten zur Situation passt. Eine hohe Bewertung bedeutet, dass Emotionen passend und glaubhaft ausgedrückt wurden." />
-                                </div>
-
-                                <div className="relative w-full h-10 flex items-center justify-center">
-                                    <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gray-300 z-0" />
-                                    <div className="grid grid-cols-5 gap-0 w-full z-10">
-                                        {[1, 2, 3, 4, 5].map((val) => (
-                                            <label key={val} className="flex flex-col items-center">
-                                                <input
-                                                    type="radio"
-                                                    name={`appropriateness_${i}`}
-                                                    value={val}
-                                                    checked={parseInt(ratings[i].appropriateness) === val}
-                                                    onChange={() => handleChange(i, 'appropriateness', val.toString())}
-                                                    className="peer hidden"
-                                                />
-                                                <div className={`w-4 h-4 rounded-full border-2 ${parseInt(ratings[i].appropriateness) === val ? 'bg-blue-600 border-blue-600' : 'bg-white border-gray-400'}`} />
-                                            </label>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-5 text-xs text-center mt-1">
-                                    <span>Unangemessen</span>
-                                    <span>Etwas unangemessen</span>
-                                    <span>Neutral</span>
-                                    <span>Angemessen</span>
-                                    <span>Sehr angemessen</span>
                                 </div>
                             </div>
 
