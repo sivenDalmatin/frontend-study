@@ -130,10 +130,18 @@ export default function Classification({ userId }) {
                             disabled={!confirmation}
                             onClick={async () => {
                                 try {
-                                    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/final-confirmation`, {
+                                    const payload = {
                                         userId,
-                                        confirmation: true
-                                    })
+                                        confirmation: true,
+                                    }
+
+                                    if (wantsVP) {
+                                        payload.wantsVP = true
+                                        payload.vpName = vpName
+                                        payload.vpEmail = vpEmail
+                                    }
+
+                                    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/final-confirmation`, payload)
                                     setFinalSubmitted(true)
                                 } catch (err) {
                                     console.error('Fehler beim Speichern der Bestätigung:', err)
@@ -144,12 +152,15 @@ export default function Classification({ userId }) {
                             Abschließen
                         </button>
                     </div>
-                )}
+                )
+                }
 
-                {finalSubmitted && (
-                    <p className="text-green-700 font-semibold">Ihre Bestätigung wurde gespeichert. Sie können das Fenster jetzt schließen. Vielen Dank!</p>
-                )}
-            </div>
+                {
+                    finalSubmitted && (
+                        <p className="text-green-700 font-semibold">Ihre Bestätigung wurde gespeichert. Sie können das Fenster jetzt schließen. Vielen Dank!</p>
+                    )
+                }
+            </div >
         )
     }
 
