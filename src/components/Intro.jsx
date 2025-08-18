@@ -3,7 +3,7 @@ import React from 'react'
 export default function Intro({ onStart }) {
   return (
     <div className="max-w-3xl mx-auto text-center space-y-6 p-6">
-      <h1 className="text-2xl font-bold">Willkommen bei dieser Patientensimulation Studie</h1>
+      <h1 className="text-2xl font-bold">Willkommen bei dieser Studie zu KI generierten Patientensimulation</h1>
       <p className="text-gray-700">
         Danke für Dein Interesse. KI ist momentan überall. ChatGPT, Gemini und ähnliche hast Du sicher schon in den letzten Jahren kennengelernt.
         Dieses Projekt möchte mithilfe dieser Technologie die Kommunikative Kompetenz von Medizinstudenten verbessern. Dazu habe Ich einen Chatbot kreiert, der möglichst realistische, aber auch diverse Patienten darstellen soll.
@@ -12,16 +12,16 @@ export default function Intro({ onStart }) {
         Die Studie ist in drei Teilen aufgebaut:
       </p>
       <p className="text-gray-700">
-        Schreiben mit dem Chatbot
+        Konversation mit dem Chatbot.
       </p>
       <p className="text-gray-700">
-        Eine kleine Evaluation dieser Konversationen
+        Evaluation der gehaltenen Konversationen.
       </p>
       <p className="text-gray-700">
-        Die Evaluation ein paar andere Konversationen.
+        Evaluation anderer Konversationsausschnitte.
       </p>
       <p className="text-gray-700">
-        Zuerst sollst Du Konversationen mit dem Chatbot halten. Du spielst den Arzt und möchtest dem Patienten helfen. Die medizinische Richtigkeit der Diagnose ist nicht relevant. Es geht um die Persönlichkeit des Patienten.
+        Zuerst sollst Du Konversationen mit dem Chatbot halten. Du spielst den Arzt und möchtest dem Patienten helfen. Die medizinische Korrektheit ist nicht relevant. Es geht um die Persönlichkeit des Patienten.
       </p>
       <p className="text-gray-700">
         Jeder Dialog ist auf 8 Nachrichten begrenzt. Diese musst du nicht ausreizen, wenn Du merkst, dass eine Konversation an ihrem inhaltlichen Ende steht.

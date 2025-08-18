@@ -269,7 +269,7 @@ export default function UserInfoForm({ onSubmit }) {
                             <p>Finn Ole Geßner [finn.gessner@uni-muenster.de] (BSc student of Geoinformatics)</p>
                             <h4>Zweck der Studie:</h4>
                             <p>Diese Studie soll evaluieren, wie gut KI-Chatbots zur Patientensimulation und zum
-                                Kommunikationstraining für Medizinstudenten geeignet ist. Im Vordergrund steht dabei die
+                                Kommunikationstraining für Medizinstudenten geeignet sind. Im Vordergrund steht dabei die
                                 Persönlichkeit des Chatbots. Die Diversität, Realismus und charakterliche Entwicklung.</p>
                             <h4>Vorgehensweise:</h4>
                             <p>Die Studie ist in drei Teilen aufgebaut: 1. Interagieren mit den Chatbots. Die Teilnehmenden
@@ -290,8 +290,6 @@ export default function UserInfoForm({ onSubmit }) {
                             <p>... ich freiwillig an der Studie teilnehme</p>
                             <br />
                             <p>... ich Fragen stellen darf (per Mail an den Forscher)</p>
-                            <br />
-                            <p>... mir dieses Dokument vor der Studie gezeigt wurde.</p>
                         </div>
                     </div>
                 </div>
