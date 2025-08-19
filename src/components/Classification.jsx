@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 
 function InfoPopup({ text }) {
@@ -8,7 +8,6 @@ function InfoPopup({ text }) {
         </div>
     )
 }
-
 
 export default function Classification({ userId }) {
     const [samples, setSamples] = useState([])
@@ -23,8 +22,6 @@ export default function Classification({ userId }) {
     const [visibleFriendliness, setVisibleFriendliness] = useState(null)
     const [confirmation, setConfirmation] = useState(false)
     const [finalSubmitted, setFinalSubmitted] = useState(false)
-
-
 
     useEffect(() => {
         const fetchSentences = async () => {
@@ -44,7 +41,7 @@ export default function Classification({ userId }) {
             sentence: current.sentence,
             dominance,
             friendliness,
-            classificator: userId
+            classificator: userId,
         }
 
         try {
@@ -53,7 +50,7 @@ export default function Classification({ userId }) {
             setTimeout(() => {
                 setDominance(null)
                 setFriendliness(null)
-                setIndex(index + 1)
+                setIndex(prev => prev + 1) // safer increment
                 setSubmitted(false)
             }, 1000)
         } catch (err) {
@@ -71,14 +68,16 @@ export default function Classification({ userId }) {
                 <p className="text-center text-green-600 font-semibold text-lg">Die Studie ist hiermit abgeschlossen 🎉</p>
                 <p>
                     Vielen Dank für die Teilnahme. Die Ihnen zugewiesene ID lautet: <strong>{userId}</strong>.
-                    Falls Sie im Nachtrag die Daten löschen lassen möchten, schreiben Sie bitte eine Mail an <a className="text-blue-600 underline" href="mailto:finn.gessner@uni-muenster.de">finn.gessner@uni-muenster.de</a> mit Ihrer ID.
+                    Falls Sie im Nachtrag die Daten löschen lassen möchten, schreiben Sie bitte eine Mail an{' '}
+                    <a className="text-blue-600 underline" href="mailto:finn.gessner@uni-muenster.de">
+                        finn.gessner@uni-muenster.de
+                    </a>{' '}
+                    mit Ihrer ID.
                 </p>
 
                 {!finalSubmitted && (
                     <div className="bg-gray-100 border border-gray-300 p-4 rounded space-y-4">
-                        <p className="text-sm">
-                            Bitte bestätigen Sie abschließend:
-                        </p>
+                        <p className="text-sm">Bitte bestätigen Sie abschließend:</p>
 
                         <label className="flex items-start gap-2 text-sm">
                             <input
@@ -91,13 +90,18 @@ export default function Classification({ userId }) {
                                 Ich habe die Fragen <strong>wahrheitsgemäß</strong> und <strong>gewissenhaft</strong> beantwortet. Diese Angabe hat keinen Einfluss auf die Vergütung.
                             </span>
                         </label>
+
                         <div className="mt-4 space-y-2">
                             <p className="text-sm font-medium">Möchten Sie sich VP-Stunden anrechnen lassen?</p>
-                            <label className="flex items-center gap-2 text-sm">
+                            <label htmlFor="wantsVP" className="flex items-center gap-2 text-sm">
                                 <input
+                                    id="wantsVP"
                                     type="checkbox"
                                     checked={wantsVP}
-                                    onChange={(e) => setWantsVP(e.target.checked)}
+                                    onChange={(e) => {
+                                        setWantsVP(e.currentTarget.checked)
+                                        console.log('wantsVP (onChange):', e.currentTarget.checked)
+                                    }}
                                 />
                                 Ja, ich möchte VP-Stunden anrechnen lassen
                             </label>
@@ -130,6 +134,7 @@ export default function Classification({ userId }) {
                             disabled={!confirmation}
                             onClick={async () => {
                                 try {
+                                    console.log('wantsVP (onClick):', wantsVP)
                                     const payload = {
                                         userId,
                                         confirmation: true,
@@ -152,35 +157,54 @@ export default function Classification({ userId }) {
                             Abschließen
                         </button>
                     </div>
-                )
-                }
+                )}
 
-                {
-                    finalSubmitted && (
-                        <p className="text-green-700 font-semibold">Ihre Bestätigung wurde gespeichert. Sie können das Fenster jetzt schließen. Vielen Dank!</p>
-                    )
-                }
-            </div >
+                {finalSubmitted && (
+                    <p className="text-green-700 font-semibold">
+                        Ihre Bestätigung wurde gespeichert. Sie können das Fenster jetzt schließen. Vielen Dank!
+                    </p>
+                )}
+            </div>
         )
     }
 
     return (
         <div className="space-y-6">
             <div className="bg-yellow-100 border border-yellow-300 p-4 rounded text-sm text-gray-800">
-                <h3>Bitte Klassifiziere jeden der 15 Konversationsausschnitte nach Freundlichkeit und Dominanz. Die Skalen sind angelehnt an das Interpersonal Circumplex Model. Falls du dies nicht kennst, orientiere dich an den zugehörigen Adjektiven</h3>
+                <h3>
+                    Bitte Klassifiziere jeden der 15 Konversationsausschnitte nach Freundlichkeit und Dominanz. Die Skalen sind
+                    angelehnt an das Interpersonal Circumplex Model. Falls du dies nicht kennst, orientiere dich an den zugehörigen
+                    Adjektiven
+                </h3>
                 <br />
                 <h3 className="font-semibold mb-2">Skalen-Erklärung</h3>
-                <p><strong>Freundlichkeit:</strong> Wie warm oder feindlich klingt die Aussage?</p>
+                <p>
+                    <strong>Freundlichkeit:</strong> Wie warm oder feindlich klingt die Aussage?
+                </p>
                 <ul className="list-disc ml-6 mb-2">
-                    <li><em>1 = sehr freundlich</em> (unterstützend, empathisch)</li>
-                    <li><em>3 = neutral</em></li>
-                    <li><em>5 = sehr feindlich</em> (kalt, konfrontativ)</li>
+                    <li>
+                        <em>1 = sehr freundlich</em> (unterstützend, empathisch)
+                    </li>
+                    <li>
+                        <em>3 = neutral</em>
+                    </li>
+                    <li>
+                        <em>5 = sehr feindlich</em> (kalt, konfrontativ)
+                    </li>
                 </ul>
-                <p><strong>Dominanz:</strong> Wie durchsetzungsstark oder unterwürfig klingt die Aussage?</p>
+                <p>
+                    <strong>Dominanz:</strong> Wie durchsetzungsstark oder unterwürfig klingt die Aussage?
+                </p>
                 <ul className="list-disc ml-6">
-                    <li><em>1 = sehr submissiv</em> (untergeordnet, zurückhaltend)</li>
-                    <li><em>3 = neutral</em></li>
-                    <li><em>5 = sehr dominant</em> (bestimmend, kontrollierend)</li>
+                    <li>
+                        <em>1 = sehr submissiv</em> (untergeordnet, zurückhaltend)
+                    </li>
+                    <li>
+                        <em>3 = neutral</em>
+                    </li>
+                    <li>
+                        <em>5 = sehr dominant</em> (bestimmend, kontrollierend)
+                    </li>
                 </ul>
             </div>
 
@@ -215,6 +239,7 @@ export default function Classification({ userId }) {
                                         checked={friendliness === val}
                                         onChange={() => setFriendliness(val)}
                                         className="peer hidden"
+                                        aria-label={`Freundlichkeit: ${val}`}
                                     />
                                     <div className={`w-4 h-4 rounded-full border-2 ${friendliness === val ? 'bg-blue-600 border-blue-600' : 'bg-white border-gray-400'}`} />
                                 </label>
@@ -229,7 +254,6 @@ export default function Classification({ userId }) {
                         <span><strong>Sehr feindlich:</strong> feindselig, konfrontativ, kalt</span>
                     </div>
                 </div>
-
 
                 {/* Dominance Scale */}
                 <div className="w-full">
@@ -258,6 +282,7 @@ export default function Classification({ userId }) {
                                         checked={dominance === val}
                                         onChange={() => setDominance(val)}
                                         className="peer hidden"
+                                        aria-label={`Dominanz: ${val}`}
                                     />
                                     <div className={`w-4 h-4 rounded-full border-2 ${dominance === val ? 'bg-blue-600 border-blue-600' : 'bg-white border-gray-400'}`} />
                                 </label>
@@ -273,7 +298,6 @@ export default function Classification({ userId }) {
                     </div>
                 </div>
             </div>
-
 
             <button
                 onClick={handleSubmit}
