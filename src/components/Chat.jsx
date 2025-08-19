@@ -60,7 +60,15 @@ export default function Chat({
                 patient: patient
             })
 
-            setMessages([...newMessages, { role: 'assistant', content: res.data.response }])
+            const meta = (res.data.user_ipc && res.data.bot_ipc_used) ? {
+                user_ipc: res.data.user_ipc,           // { friendliness, dominance }
+                bot_ipc_used: res.data.bot_ipc_used,   // IPC used for THIS reply
+                bot_ipc_next: res.data.bot_ipc_next || (
+                    res.data.llm_icm ? { friendliness: res.data.llm_icm[0], dominance: res.data.llm_icm[1] } : undefined
+                )
+            } : undefined
+
+            setMessages([...newMessages, { role: 'assistant', content: res.data.response, meta }])
 
             if (res.data.patient !== undefined) setPatient(res.data.patient)
             if (res.data.llm_icm !== undefined) setLlmIcm(res.data.llm_icm)
