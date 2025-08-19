@@ -134,19 +134,20 @@ export default function Classification({ userId }) {
                             disabled={!confirmation}
                             onClick={async () => {
                                 try {
-                                    console.log('wantsVP (onClick):', wantsVP)
                                     const payload = {
                                         userId,
                                         confirmation: true,
+                                        ...(wantsVP ? { vpStunden: true, vpName, vpEmail } : {}),
                                     }
 
-                                    if (wantsVP) {
-                                        payload.wantsVP = true
-                                        payload.vpName = vpName
-                                        payload.vpEmail = vpEmail
-                                    }
+                                    console.log('final-confirmation payload:', payload)
 
-                                    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/final-confirmation`, payload)
+                                    await axios.post(
+                                        `${import.meta.env.VITE_BACKEND_URL}/final-confirmation`,
+                                        payload,
+                                        { headers: { 'Content-Type': 'application/json' } }
+                                    )
+
                                     setFinalSubmitted(true)
                                 } catch (err) {
                                     console.error('Fehler beim Speichern der Bestätigung:', err)
