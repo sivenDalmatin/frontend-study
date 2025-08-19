@@ -342,32 +342,27 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
             <button
                 onClick={handleSubmit}
                 disabled={!allRatingsValid || isLoading}
+                aria-busy={isLoading}
                 className="relative flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 transition text-white px-4 py-2 rounded focus:outline-none focus:ring focus:ring-blue-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
             >
                 {isLoading && (
-                    <svg
-                        className="animate-spin h-4 w-4 text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                    >
-                        <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                        />
-                        <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8z"
-                        />
+                    <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8z" />
                     </svg>
                 )}
                 {isLoading ? 'Absenden...' : 'Absenden und Fortfahren'}
             </button>
+            {isLoading && (
+                <div
+                    role="status"
+                    aria-live="polite"
+                    className="mt-3 text-sm bg-yellow-50 border border-yellow-200 text-yellow-900 rounded p-3"
+                >
+                    <span className="mr-1">ℹ️</span>
+                    Hinweis: Das Absenden kann etwas länger dauern. Das ist normal. Bitte haben Sie etwas Geduld und schließen oder aktualisieren Sie die Seite nicht.
+                </div>
+            )}
 
         </div>
     )
