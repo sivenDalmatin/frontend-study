@@ -21,17 +21,18 @@ export default function Intro({ onStart }) {
         Evaluation anderer Konversationsausschnitte.
       </p>
       <p className="text-gray-700">
-        Zuerst sollst Du Konversationen mit dem Chatbot halten. Du spielst den Arzt und möchtest dem Patienten helfen. Die medizinische Korrektheit ist nicht relevant. Es geht um die Persönlichkeit des Patienten.
+        Zuerst werden Konversationen mit dem Chatbot gehalten. Du spielst den Arzt und möchtest dem Patienten helfen. Die medizinische Korrektheit ist nicht relevant. Es geht um die Persönlichkeit des Patienten.
       </p>
       <p className="text-gray-700">
         Jeder Dialog ist auf 8 Nachrichten begrenzt. Diese musst du nicht ausreizen, wenn Du merkst, dass eine Konversation an ihrem inhaltlichen Ende steht.
       </p>
       <p className="text-gray-700">
-        Du hast 25 Minuten um die Dialoge durchzuführen. Das Minimum an Konversationen dass du halten sollst sind vier Konversationen, besser sind aber mehr
+        Du hast 25 Minuten um die Dialoge durchzuführen. Das Minimum an Konversationen dass du halten sollst, sind vier Konversationen, auch wenn es die 25 Minuten übersteigt.
       </p>
       <p className="text-gray-700 italic">
-        Nach den Dialogen hast du 10 Minuten für die erste Evaluation und 10 Minuten für die 2. Evalutation
+        Nach den Dialogen hast du ca. 10 Minuten für die erste Evaluation und 10 Minuten für die 2. Evalutation
       </p>
+      <p className="text-gray-700 italic">Für Psychologiestudierende kann für die Teilnahme an der Studie ein VP angerechnet werden</p>
       <p className='text-red-600 italic'>Bitte führe diese Umfrage am Stück durch und lade die Seite nicht neu</p>
       <button
         onClick={onStart}
