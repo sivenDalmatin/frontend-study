@@ -223,9 +223,9 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
                                 </div>
                                 <div className="grid grid-cols-5 text-xs text-center mt-1">
                                     <span> <strong>Sehr submissiv:</strong> unterwürfig, zurückhaltend, abhängig</span>
-                                    <span><strong>Etwas submissiv:</strong> vorsichtig, nachgiebig</span>
-                                    <span><strong>Neutral:</strong> weder dominant noch submissiv</span>
-                                    <span><strong>Etwas dominant:</strong> selbstbewusst, leitend</span>
+                                    <span><strong>Etwas submissiv:</strong></span>
+                                    <span><strong>Neutral:</strong></span>
+                                    <span><strong>Etwas dominant:</strong></span>
                                     <span><strong>Sehr dominant:</strong> kontrollierend, fordernd, bestimmend</span>
                                 </div>
                             </div>
@@ -257,9 +257,9 @@ export default function Evaluation({ dialogues, logFilenames, onNext, userId }) 
                                 </div>
                                 <div className="grid grid-cols-5 text-xs text-center mt-1">
                                     <span> <strong>Sehr freundlich:</strong> unterstützend, empathisch, herzlich</span>
-                                    <span> <strong>Etwas freundlich:</strong> wohlwollend, kooperativ</span>
-                                    <span><strong>Neutral:</strong> sachlich, emotionslos</span>
-                                    <span><strong>Etwas feindlich:</strong> distanziert, ablehnend</span>
+                                    <span> <strong>Etwas freundlich:</strong></span>
+                                    <span><strong>Neutral:</strong></span>
+                                    <span><strong>Etwas feindlich:</strong></span>
                                     <span><strong>Sehr feindlich:</strong> feindselig, konfrontativ, kalt</span>
                                 </div>
                             </div>
