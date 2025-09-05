@@ -26,8 +26,9 @@ export default function Chat({
 
     // Simple, robust count-up using a fixed startTime in localStorage
     useEffect(() => {
-        let startTime = parseInt(localStorage.getItem(START_TIME_KEY), 10)
-        if (!startTime) {
+        let startTime = Number(localStorage.getItem(START_TIME_KEY))
+        // Reset if missing, invalid, or somehow in the future
+        if (!Number.isFinite(startTime) || startTime <= 0 || startTime > Date.now()) {
             startTime = Date.now()
             localStorage.setItem(START_TIME_KEY, String(startTime))
         }
@@ -111,6 +112,11 @@ export default function Chat({
         setInput('')
         setPatient('')
         setLlmIcm([2, 2]) // <-- reset ICM state for next session
+
+        // ⬇️ Reset the timer for the new dialogue
+        const now = Date.now()
+        localStorage.setItem(START_TIME_KEY, String(now))
+        setElapsedMinutes(0)
     }
 
     return (
