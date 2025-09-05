@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const MAX_TIME_MINUTES = 25
-const END_TIME_KEY = 'chatEndTime'
+const START_TIME_KEY = 'chatStartTime'
 
 // Helper to generate random [friendliness, dominance] values
 const randomIcm = () => [Math.floor(Math.random() * 5), Math.floor(Math.random() * 5)]
@@ -21,21 +20,21 @@ export default function Chat({
 }) {
     const [input, setInput] = useState('')
     const [loading, setLoading] = useState(false)
-    const [remainingMinutes, setRemainingMinutes] = useState(MAX_TIME_MINUTES)
+    const [elapsedMinutes, setElapsedMinutes] = useState(0) // <-- count-up minutes
     const [llmIcm, setLlmIcm] = useState([2, 2]) // <-- ICM state
     const [patient, setPatient] = useState('')
 
-    // Simple, robust countdown using a fixed endTime in localStorage
+    // Simple, robust count-up using a fixed startTime in localStorage
     useEffect(() => {
-        let endTime = parseInt(localStorage.getItem(END_TIME_KEY), 10)
-        if (!endTime || Date.now() > endTime) {
-            endTime = Date.now() + MAX_TIME_MINUTES * 60_000
-            localStorage.setItem(END_TIME_KEY, String(endTime))
+        let startTime = parseInt(localStorage.getItem(START_TIME_KEY), 10)
+        if (!startTime) {
+            startTime = Date.now()
+            localStorage.setItem(START_TIME_KEY, String(startTime))
         }
 
         const updateTime = () => {
-            const diff = endTime - Date.now()
-            setRemainingMinutes(Math.max(0, Math.ceil(diff / 60000)))
+            const diff = Date.now() - startTime
+            setElapsedMinutes(Math.max(0, Math.floor(diff / 60000)))
         }
 
         updateTime()
@@ -145,7 +144,7 @@ export default function Chat({
             </div>
 
             <div className="flex justify-between items-center">
-                <p className="text-sm text-gray-500">{remainingMinutes} Minute(n) übrig</p>
+                <p className="text-sm text-gray-500">{elapsedMinutes} Minute(n) vergangen</p>
                 {messages.length >= 16 && (
                     <p className="text-sm text-gray-500">Maximum von 8 turns (16 Nachrichten) erreicht.</p>
                 )}

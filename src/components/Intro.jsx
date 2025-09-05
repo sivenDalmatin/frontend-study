@@ -27,7 +27,7 @@ export default function Intro({ onStart }) {
         Jeder Dialog ist auf 8 Nachrichten begrenzt. Diese musst du nicht ausreizen, wenn Du merkst, dass eine Konversation an ihrem inhaltlichen Ende steht.
       </p>
       <p className="text-gray-700">
-        Du hast 25 Minuten um die Dialoge durchzuführen. Das Minimum an Konversationen dass du halten sollst, sind vier Konversationen, auch wenn es die 25 Minuten übersteigt.
+        Du hast 25 Minuten um die Dialoge durchzuführen, dazu hast du einen Timer. Das Minimum an Konversationen dass du halten sollst, sind vier Konversationen, auch wenn es die 25 Minuten übersteigt.
       </p>
       <p className="text-gray-700 italic">
         Nach den Dialogen hast du ca. 10 Minuten für die erste Evaluation und 10 Minuten für die 2. Evalutation
