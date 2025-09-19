@@ -116,7 +116,7 @@ export default function App() {
 
       {showIntroOverlay && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded p-6 max-w-4xl w-full relative">
+          <div className="bg-white rounded p-6 max-w-4xl w-full relative max-h-[85vh] overflow-y-auto">
             <button
               onClick={() => setShowIntroOverlay(false)}
               className="absolute top-2 right-2 text-gray-500 hover:text-black"
