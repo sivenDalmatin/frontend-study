@@ -90,13 +90,15 @@ export default function Chat({
         if (messages.length > 0) {
             const updatedDialogues = [...dialogues, { bot: botId, turns: messages }]
             setDialogues(updatedDialogues)
+            console.log('About to save dialogue:', JSON.parse(JSON.stringify(messages)));
+
 
             try {
                 const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/save-dialogue`, {
                     dialogue: messages,
                     index: updatedDialogues.length,
                     bot: botId,
-                    userid: userID
+                    userid: userID,
                 })
                 const filename = response.data.filename
                 setLogFilenames([...logFilenames, filename])
