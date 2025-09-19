@@ -27,7 +27,8 @@ export default function Classification({ userId }) {
         const fetchSentences = async () => {
             try {
                 const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/sentences`)
-                setSamples(res.data)
+                const randomized = [...res.data].sort(() => Math.random() - 0.5)
+                setSamples(randomized)
             } catch (err) {
                 console.error('Error loading sentences:', err)
             }
