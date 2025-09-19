@@ -60,15 +60,19 @@ export default function Chat({
                 patient: patient
             })
 
-            const meta =
-                (res.data.user_ipc && res.data.bot_ipc_next)
-                    ? {
-                        user_ipc: res.data.user_ipc,
-                        bot_ipc_next: res.data.bot_ipc_next,
-                    }
-                    : undefined
+            const meta = (res.data.user_ipc || res.data.bot_ipc_next)
+                ? {
+                    user_ipc: res.data.user_ipc ?? null,
+                    bot_ipc_next: res.data.bot_ipc_next ?? null,
+                }
+                : undefined
 
-            setMessages([...newMessages, { role: 'assistant', content: res.data.response, meta }])
+            // functional update avoids any stale state/race issues
+            setMessages(prev => [
+                ...prev,
+                meta ? { role: 'assistant', content: res.data.response, meta }
+                    : { role: 'assistant', content: res.data.response }
+            ])
 
             if (res.data.patient !== undefined) setPatient(res.data.patient)
             if (res.data.llm_icm !== undefined) setLlmIcm(res.data.llm_icm)
@@ -88,14 +92,15 @@ export default function Chat({
 
     const startNewDialogue = async () => {
         if (messages.length > 0) {
-            const updatedDialogues = [...dialogues, { bot: botId, turns: messages }]
+            const snapshot = JSON.parse(JSON.stringify(messages)) // <- deep clone with meta
+            const updatedDialogues = [...dialogues, { bot: botId, turns: snapshot }]
             setDialogues(updatedDialogues)
-            console.log('About to save dialogue:', JSON.parse(JSON.stringify(messages)));
+            console.log('About to save dialogue:', snapshot)
 
 
             try {
                 const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/save-dialogue`, {
-                    dialogue: messages,
+                    dialogue: snapshot,
                     index: updatedDialogues.length,
                     bot: botId,
                     userid: userID,
