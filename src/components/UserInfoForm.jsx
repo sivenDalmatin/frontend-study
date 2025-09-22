@@ -33,6 +33,19 @@ export default function UserInfoForm({ onSubmit }) {
         <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4 p-4 text-center">
             <h2 className="text-xl font-semibold">Bitte gib Deine Hintergrundinformationen ein</h2>
 
+            <div
+                className="flex items-start gap-3 rounded-lg border border-amber-300 bg-amber-50 p-3 text-left"
+                role="status"
+                aria-live="polite"
+            >
+                <span className="mt-0.5 text-amber-600" aria-hidden>ℹ️</span>
+                <p className="text-sm text-amber-800">
+                    <strong>Hinweis:</strong> Bitte nimm an der Studie <strong>am PC/Laptop</strong> teil
+                    und verbinde Dich <strong>nicht über das Uni-Netzwerk/VPN</strong>.
+                    Andernfalls können Funktionen eingeschränkt sein.
+                </p>
+            </div>
+
             <input
                 type="number"
                 placeholder="Alter"
